@@ -1,6 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 
+const pageRoute = require('./routes/pageRoute');
+const userRoute = require('./routes/userRoute');
+
 
 
 const app = express();
@@ -15,16 +18,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 
-app.use('/gallery',(req, res)=>{
-    res.render('gallery');
-    
-})
 
-
-app.use('/',(req, res)=>{
-    res.render('index');
-    
-})
+app.use('/', pageRoute.routes);
+app.use('/users', userRoute.routes);
 
 
 
