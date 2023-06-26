@@ -3,6 +3,8 @@
 
 
 const getIndexPage = (req, res) =>{
+
+    console.log(req.user);
     try {
         res.render('index',{
             page_name : 'index'
@@ -88,11 +90,28 @@ const getRegisterPage = (req, res) =>{
           });
     }
 }
+
+
+const getLoginPage = (req, res) =>{
+    try {
+        res.render('login',{
+            page_name : 'login'
+        })
+        
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            error,
+          });
+    }
+}
 module.exports = {
     getIndexPage,
     getAboutPage,
     getTrainerPage,
     getGalleryPage,
     getContactPage,
-    getRegisterPage
+    getRegisterPage,
+    getLoginPage
+    
 }
