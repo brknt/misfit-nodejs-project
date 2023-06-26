@@ -8,7 +8,8 @@ const router = express.Router();
 
 
 router.post('/signup', userController.createUser);
-router.post('/login',userController.loginUser);
+router.post('/login', userController.loginUser);
+router.get('/dashboard', authMiddleware.authenticateToken, userController.getDashboardPage);
 
 
 module.exports = {

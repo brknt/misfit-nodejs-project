@@ -4,7 +4,6 @@
 
 const getIndexPage = (req, res) =>{
 
-    console.log(req.user);
     try {
         res.render('index',{
             page_name : 'index'
@@ -105,6 +104,23 @@ const getLoginPage = (req, res) =>{
           });
     }
 }
+
+
+
+const getLogoutPage = (req, res) =>{
+    try {
+        res.cookie('jwt', '', {
+            maxAge: 1
+        });
+        res.redirect('/');
+        
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            error,
+          });
+    }
+}
 module.exports = {
     getIndexPage,
     getAboutPage,
@@ -112,6 +128,7 @@ module.exports = {
     getGalleryPage,
     getContactPage,
     getRegisterPage,
-    getLoginPage
+    getLoginPage,
+    getLogoutPage
     
 }

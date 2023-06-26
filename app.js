@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const pageRoute = require('./routes/pageRoute');
 const userRoute = require('./routes/userRoute');
+const {checkToken} = require('./middlewares/authMiddleware');
 
 
 
@@ -40,7 +41,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-
+app.get("*", checkToken);
 app.use('/', pageRoute.routes);
 app.use('/users', userRoute.routes);
 

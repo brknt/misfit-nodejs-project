@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
   try {
-    console.log(req.body);
     const user = await User.create(req.body);
     res.status(201).redirect("/login");
   } catch (error) {
@@ -65,8 +64,24 @@ const cerateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1d' });
 }
 
+const getDashboardPage = (req, res) =>{
+  try {
+    console.log('geldi');
+    
+      res.render('dashboard',{
+          page_name : 'dashboard'
+      })
+      
+  } catch (error) {
+      res.status(400).json({
+          status: 'fail',
+          error,
+        });
+  }
+}
 
 module.exports = {
   createUser,
-  loginUser
+  loginUser,
+  getDashboardPage
 };
