@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Training = require('../models/Training');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -6,13 +7,17 @@ const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    await User.create(req.body);
     res.status(201).redirect("/login");
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    });
+
+    let errors = {};
+    if (error.name === 'ValidationError') {
+      Object.keys(error.errors).forEach((key) => {
+        errors[key] = error.errors[key].message;
+      });
+    }
+    res.status(400).json(errors);
   }
 };
 
@@ -64,19 +69,21 @@ const cerateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1d' });
 }
 
-const getDashboardPage = (req, res) =>{
+const getDashboardPage = async(req, res) => {
   try {
-    console.log('geldi');
+    const training = await Training.find({user:res.locals.user});
     
-      res.render('dashboard',{
-          page_name : 'dashboard'
-      })
+    res.render('dashboard', {
+      page_name: 'dashboard',
+      training:training
       
+    })
+
   } catch (error) {
-      res.status(400).json({
-          status: 'fail',
-          error,
-        });
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
   }
 }
 

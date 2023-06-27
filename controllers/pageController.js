@@ -32,21 +32,6 @@ const getAboutPage = (req, res) =>{
     }
 }
 
-
-const getTrainerPage = (req, res) =>{
-    try {
-        res.render('trainer',{
-            page_name : 'trainer'
-        })
-        
-    } catch (error) {
-        res.status(400).json({
-            status: 'fail',
-            error,
-          });
-    }
-}
-
 const getGalleryPage = (req, res) =>{
     try {
         res.render('gallery',{
@@ -124,7 +109,6 @@ const getLogoutPage = (req, res) =>{
 module.exports = {
     getIndexPage,
     getAboutPage,
-    getTrainerPage,
     getGalleryPage,
     getContactPage,
     getRegisterPage,

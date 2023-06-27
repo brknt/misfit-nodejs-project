@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
+
 const Schema = mongoose.Schema;
 
 
@@ -8,12 +10,14 @@ const UserSchema = new Schema({
 
     name: {
         type: String,
-        required: true
+        required: [true, 'Name area is required'],
+        validate: [validator.isAlphanumeric,'Only alphanumeric characters']
     },
     email: {
         type: String,
         unique: true,
-        required: true
+        required: [true, 'Email area is required'],
+        validate: [validator.isEmail, 'Valid email is required' ]
     },
     role: {
         type: String,
@@ -22,12 +26,17 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Password area is required'],
+        minLength:[4,'At least 4 characters']
     },
     createdAt:{
         type: Date,
         default: Date.now
-    }
+    },
+    training:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Workout'
+    }]
 });
 
 UserSchema.pre('save', function(next) {

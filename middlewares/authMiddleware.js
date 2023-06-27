@@ -10,7 +10,7 @@ const checkToken = async (req, res, next) => {
         
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-                console.log('decodedtoken::::');
+               
 
                 if (err) {
                     console.log(err.message);

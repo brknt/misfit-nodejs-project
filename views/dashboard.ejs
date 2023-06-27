@@ -1,27 +1,253 @@
 <%- include('partials/_header.ejs') -%>
-      
-<%- include('partials/_navigation.ejs') -%>
-      <!-- end header inner -->
-      <!-- end header -->
-       <!-- latest news -->
-       <div class="latest">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Welcome <%= user.name %></h2>
-                     
-                  </div>
-               </div>
+
+  <%- include('partials/_navigation.ejs') -%>
+
+  <% if(user){ %>
+    <!--  customers -->
+    <div class="customers">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="titlepage text_align_center">
+              <h2>Welcome <%= user.name %>
+              </h2>
             </div>
-            <div class="row">
-               <div class="col-sm-12">
-                  <div class="news_img">
-                     <figure><img src="/images/nes.jpg" alt="#"/></figure>
-                  </div>
-               </div>
+          </div>
+        </div>
+
+        <!------------------TRAINER---------------->
+        <% if(user.role==='trainer') {%>
+        <div class="row">
+          <div class="col-md-12 ">
+            <button data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+              style="  margin-left: 50%; transform: translateX(-50%);" class="read_more">Add New
+              Training</button>
+          </div>
+        </div>
+        <% } %>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="satteb text_align_center">
+              <p>fact that a reader will be distracted by the readable content of a page when looking at its
+                layout. The point of using Lorem Ipsum is that itfact that a reader will be distracted by the
+                readable content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                itfact that a reader will be distracted by the readable content of a page when looking at its
+                layout. The point of using Lorem Ipsum is that itfact that a reader will be distracted by the
+                readable content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                it
+              </p>
+
             </div>
-         </div>
+          </div>
+        </div>
+
+
+
+
+
       </div>
-      <!--  footer -->
-      <%- include('partials/_footer.ejs') -%>
+    </div>
+    <!-- end customers  -->
+    <!------------------TRAINER---------------->
+    <% if(user.role==='trainer'){ %>
+      <div class="all-title-box">
+        <div class="row">
+        <div class="container text-center">
+          <h1>ROLE:<span class="m_1">MEMBER</span>
+          </h1>
+        </div>
+        <div class="container">
+          <h1>Trainings I created:
+          </h1>
+        </div>
+      </div>
+      </div>
+    <div class="container mt-2">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="card-group">
+
+            <% for(let i=0;i<training.length;i++){ %>
+              <div class="col-sm-6 col-md-4 mt-2">
+                <div class="card">
+                  <img src="/images/tra0.jpg" class="card-img-top" alt="Hollywood Sign on The Hill" href="/" />
+                  <div class="card-body">
+                    <h5 class="card-title"><a href="/trainings/<%= training[i].slug%>" title="">
+                        <%= training[i].name%>
+                      </a></h5>
+                    <p class="card-text">
+                      <%= training[i].description%>
+                    </p>
+
+                  </div>
+                  <div class="clearfix">
+                    <ul style="list-style-type: none">
+                      <li style="float: right"><a class="btn btn-primary rounded-0 text-white" data-toggle="modal"
+                          data-target="#updateTraining<%= training[i]._id%>"><span>UPDATE</span></a></li>
+                      <li style="float: left"><a href="/" onclick="return confirm('Are you sure!')"
+                          class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- UPDATE Modal -->
+              <div class="modal fade" id="updateTraining<%= training[i]._id%>" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body customer-box">
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="Login">
+                          <form method="POST" action="/courses/<%= training[i].slug %>?_method=PUT"
+                            class="form-horizontal">
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <input type="text" name="name" value="<%= training[i].name %>" class="form-control"
+                                  placeholder="Training Name">
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <input type="hidden" name="role" class="form-control" value="">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <textarea rows="8" name="description" class="form-control"
+                                  placeholder="Training Description"
+                                  required><%= training[i].description.substring(0,100) + '...'%></textarea>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-sm-10">
+                                <button type="submit" class="btn btn-light btn-radius btn-brd grd1">
+                                  Update
+                                </button>
+                                <button type="submit" class="btn btn-light btn-radius btn-brd grd1" data-dismiss="modal"
+                                  aria-hidden="true">
+                                  Cancel
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <% } %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+
+     <!------------------MEMBER---------------->
+    <% if(user.role==='member'){ %>
+      <div class="all-title-box">
+        <div class="row">
+        <div class="container text-center">
+          <h1>ROLE:<span class="m_1">MEMBER</span>
+          </h1>
+        </div>
+        <div class="container">
+          <h1>Trainings I have:
+          </h1>
+        </div>
+      </div>
+      </div>
+
+      <div class="container mt-2">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="card-group">
+  
+              <% for(let i=0;i<user.training.length;i++){ %>
+                <div class="col-sm-6 col-md-4">
+                  <div class="card">
+                    <img src="/images/tra0.jpg" class="card-img-top" alt="Hollywood Sign on The Hill" href="/" />
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/trainings/<%= user.training[i].slug%>" title="">
+                          <%= user.training[i].name%>
+                        </a></h5>
+                      <p class="card-text">
+                        <%= user.training[i].description%>
+                      </p>
+  
+                    </div>
+                  
+                  </div>
+  
+                </div>
+  
+                <% } %>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+    
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div style="margin-top: 50px; margin-bottom: 50px;" class="container">
+            <div class="row">
+              <div class="col-md-12 ">
+                <div class="text_align_center">
+                  <h2 style="
+                     font-size: 30px;
+                     margin-bottom: 20px;
+                     color: #022c53;
+                 ">Add New Training</h2>
+                </div>
+              </div>
+              <div class="col-md-12 offset-md-1">
+                <form id="request" class="main_form" method="POST" action="/training">
+                  <div class="row">
+                    <div class="offset-1 col-lg-10 col-md-10 col-sm-10">
+                      <input class="form_control" placeholder="Name" type="text" name="name">
+                    </div>
+                    <div class="offset-1 col-lg-10 col-md-10 col-sm-10">
+                      <textarea name="description" style="height: 150px;" class="form_control" placeholder="Description"
+                        rows="5"></textarea>
+                    </div>
+
+
+
+                    <div class="offset-1 col-lg-10 col-md-10 col-sm-10">
+                      <div class="group_form">
+                        <button class="read_more">SUBMIT</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  footer -->
+    <% } %>
+    <%- include('partials/_footer.ejs') -%>
