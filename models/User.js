@@ -33,9 +33,9 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    training:[{
+    trainings:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'Workout'
+        ref: 'Training'
     }]
 });
 

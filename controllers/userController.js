@@ -9,8 +9,9 @@ const createUser = async (req, res) => {
   try {
     await User.create(req.body);
     res.status(201).redirect("/login");
-  } catch (error) {
 
+  } catch (error) {
+    console.log("eeeeee");
     let errors = {};
     if (error.name === 'ValidationError') {
       Object.keys(error.errors).forEach((key) => {
