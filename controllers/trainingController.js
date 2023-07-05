@@ -21,14 +21,13 @@ const createTraining = async (req, res) => {
 
 const getTraining = async (req, res) => {
     try {
-        const training = await Training.findOne({ slug: req.params.slug }).populate('user');
-
-
-        console.log(training);
+        const training = await Training.findOne({ slug: req.params.slug });
+        const userTrainer = await User.findById({ _id: training.user});
 
         res.status(201).render('training', {
             page_name: 'dashboard',
-            training
+            training,
+            userTrainer
         });
 
     } catch (error) {
@@ -71,11 +70,26 @@ const enrollTraining = async (req, res) => {
     }
 }
 
+
+
+const updateTraining = async (req, res) => {
+    try {
+        const training = await Training.findOne({slug: req.params.slug});
+        training.name = req.body.name;
+        training.description = req.body.description;
+        training.save();
+        res.status(201).redirect('/users/dashboard');
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
 module.exports = {
     createTraining,
     getTraining,
     getAllTraining,
-    enrollTraining
+    enrollTraining,
+    updateTraining
 
 }
 

@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken');
 
 const checkToken = async (req, res, next) => {
     try {
+
         const token = req.cookies.jwt;
-        
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-               
 
                 if (err) {
                     console.log(err.message);

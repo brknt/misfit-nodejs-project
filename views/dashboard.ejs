@@ -64,13 +64,13 @@
         </div>
       </div>
       </div>
-    <div class="container mt-2">
+    <div class="container mt-5">
       <div class="col-sm-12">
         <div class="row">
           <div class="card-group">
 
             <% for(let i=0;i<training.length;i++){ %>
-              <div class="col-sm-6 col-md-4 mt-2">
+              <div class="col-sm-6 col-md-4">
                 <div class="card">
                   <img src="/images/tra0.jpg" class="card-img-top" alt="Hollywood Sign on The Hill" href="/" />
                   <div class="card-body">
@@ -80,20 +80,21 @@
                     <p class="card-text">
                       <%= training[i].description%>
                     </p>
-
+                    <div class="clearfix">
+                      <ul style="list-style-type: none">
+                        <li style="float: right"><a class="btn btn-primary rounded-0 text-white" data-toggle="modal"
+                            data-target="#updateTraining<%= training[i]._id%>"><span>UPDATE</span></a></li>
+                        <li style="float: left"><a href="/" onclick="return confirm('Are you sure!')"
+                            class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="clearfix">
-                    <ul style="list-style-type: none">
-                      <li style="float: right"><a class="btn btn-primary rounded-0 text-white" data-toggle="modal"
-                          data-target="#updateTraining<%= training[i]._id%>"><span>UPDATE</span></a></li>
-                      <li style="float: left"><a href="/" onclick="return confirm('Are you sure!')"
-                          class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></li>
-                    </ul>
-                  </div>
+                 
                 </div>
 
               </div>
 
+            
               <!-- UPDATE Modal -->
               <div class="modal fade" id="updateTraining<%= training[i]._id%>" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel">
@@ -103,7 +104,7 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="Login">
-                          <form method="POST" action="/courses/<%= training[i].slug %>?_method=PUT"
+                          <form method="POST" action="/trainings/<%= training[i].slug %>?_method=PUT"
                             class="form-horizontal">
                             <div class="form-group">
                               <div class="col-sm-12">
@@ -194,6 +195,7 @@
   
                 <% } %>
   
+               
             </div>
           </div>
         </div>
@@ -223,7 +225,7 @@
                 </div>
               </div>
               <div class="col-md-12 offset-md-1">
-                <form id="request" class="main_form" method="POST" action="/training">
+                <form id="request" class="main_form" method="POST" action="/trainings">
                   <div class="row">
                     <div class="offset-1 col-lg-10 col-md-10 col-sm-10">
                       <input class="form_control" placeholder="Name" type="text" name="name">

@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
 
 
 
@@ -35,15 +36,18 @@ app.set('view engine', 'ejs');
 
 
 
-
 //MIDDLEWARE
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
+app.use(methodOverride('_method',{
+    methods: ['POST','GET']
+}));
 
 
 
+//ROUTES
 app.use("*", checkToken);
 app.use('/', pageRoute.routes);
 app.use('/users', userRoute.routes);

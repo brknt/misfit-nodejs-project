@@ -42,7 +42,11 @@
                                 <div class="col-lg-12 blog-post-single">
                                     <div class="blog-author">
                                         <div class="author-bio">
-                                            <h3 class="author_name">COURSES FROM: <%=user.name %></h3>
+                                            <% if(!userTrainer) {%>
+                                                <h3 class="author_name">COURSES FROM: NULL</h3>
+                                                <% } else {%>
+                                            <h3 class="author_name">COURSES FROM: <%=userTrainer.name || "null"%></h3>
+                                            <% } %>
                                         </div>
                         
                                     </div>

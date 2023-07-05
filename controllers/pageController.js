@@ -20,6 +20,7 @@ const getIndexPage = (req, res) =>{
 
 const getAboutPage = (req, res) =>{
     try {
+        
         res.render('about',{
             page_name : 'about'
         })
