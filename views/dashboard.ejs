@@ -55,7 +55,7 @@
       <div class="all-title-box">
         <div class="row">
         <div class="container text-center">
-          <h1>ROLE:<span class="m_1">MEMBER</span>
+          <h1>ROLE:<span class="m_1">TRAINER</span>
           </h1>
         </div>
         <div class="container">
@@ -84,7 +84,8 @@
                       <ul style="list-style-type: none">
                         <li style="float: right"><a class="btn btn-primary rounded-0 text-white" data-toggle="modal"
                             data-target="#updateTraining<%= training[i]._id%>"><span>UPDATE</span></a></li>
-                        <li style="float: left"><a href="/" onclick="return confirm('Are you sure!')"
+
+                        <li style="float: left"><a href="/trainings/<%= training[i].slug %>?_method=DELETE" onclick="return confirm('Are you sure!')"
                             class="btn btn-danger rounded-0 text-white"><span>DELETE</span></a></li>
                       </ul>
                     </div>

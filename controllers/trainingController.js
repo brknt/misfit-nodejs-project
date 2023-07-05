@@ -84,12 +84,28 @@ const updateTraining = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
+
+
+
+const deleteTraining = async (req, res) => {
+    try {
+        const training = await Training.findOneAndRemove({slug: req.params.slug});
+
+        res.status(201).redirect('/users/dashboard');
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+
 module.exports = {
     createTraining,
     getTraining,
     getAllTraining,
     enrollTraining,
-    updateTraining
+    updateTraining,
+    deleteTraining
 
 }
 
